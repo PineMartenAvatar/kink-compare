@@ -1810,10 +1810,14 @@ class Options extends React.Component {
         this.state = {
             name: "React",
             about_open: false,
-            instructions_open: false
+            instructions_open: false,
+            restore_open: false
         }
         this.toggleAbout = this.toggleAbout.bind(this);
         this.toggleInstructions = this.toggleInstructions.bind(this);
+        this.toggleRestore = this.toggleRestore.bind(this);
+        this.restoreAnswers = this.restoreAnswers.bind(this);
+        this.restore_hash = React.createRef();
     };
     
     aboutPanel() {
@@ -1834,8 +1838,14 @@ class Options extends React.Component {
         this.setState({about_open: false});
     }
     
+    toggleRestore (event) {
+        this.setState({restore_open: !this.state.restore_open});
+    }
     
-    // TODO: this should disappear if you click OUTSIDE it, not inside.
+    restoreAnswers() {
+        console.log(this.restore_hash.current.value);
+    }
+    
     render() {
         return (
             <div className="Links">
@@ -1843,8 +1853,8 @@ class Options extends React.Component {
                         About
                         
                             {this.state.about_open ? (
-                                <div className="Panel-shadow">
-                                    <div className="Panel About-panel" onClick={(event)=>this.toggleInstructions(event)}>
+                                <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
+                                    <div className="Panel About-panel">
                                         im gay lol
                                         <br /><br />
                                         nothing in this page is ever recorded or sent to a server, it is all open source and client-side, I do not store or process any data from this app
@@ -1858,7 +1868,7 @@ class Options extends React.Component {
                         Instructions
                         
                         {this.state.instructions_open ? (
-                            <div className="Panel-shadow">
+                            <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
                                 <div className="Panel Instructions-panel">
                                     Fill out the survey, and then hit "generate hash". This will generate a string which you can then copy and send to your partner. Once you have both hashes, paste them (along with your names, if you'd like to make things easier to read) into the text fields below and hit the "compare" button.
                                     <br/><br/>
@@ -1880,6 +1890,18 @@ class Options extends React.Component {
                                             For kinks in which there aren't roles, such as "chance of getting caught", you may still select different "as top" and "as bottom" choices, as those reflect how you'd feel in those situations when topping or bottoming for whatever else is happening during that scene
                                         </li>
                                     </ul>                                      
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className="Link restore" onClick={(event)=>this.toggleRestore(event)}>
+                        Restore
+                        
+                        {this.state.restore_open ? (
+                            <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
+                                <div className="Panel Restore-panel">
+                                    <input type="text" ref={this.restore_hash} className="Compare-text" placeholder="Hash you want to restore to"/>
+                                    <button className="Restore-button" onClick={this.restoreAnswers}>Restore answers</button>
                                 </div>
                             </div>
                         ) : null}

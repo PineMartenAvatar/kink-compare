@@ -150,6 +150,10 @@ input {
 .Option-container input[type="radio"] {
     opacity: 0;
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 0px;
 }
 
 .Option-container label {
@@ -306,20 +310,19 @@ input {
     transform: translate(-50%, -50%);
     border: 5px solid #333333;
     
+    cursor: default;
+    pointer-events: none;
+    
     color: #5e6472;
     font-size: 15pt;
     
+    z-index: 1;
+    
     background-color: #faf3dd;
-    
-    
-    /* for IE */
-/*    box-shadow: 0 0 0 1000px rgba(0,0,0,.8);*/
-    /* for real browsers */
-/*    box-shadow: 0 0 0 100vmax rgba(0,0,0,.8);*/
-/*    pointer-events: none;*/
 }
 
 .Panel-shadow {
+    z-index: 2;
     position: fixed;
     width: 100%;
     height: 100%;
