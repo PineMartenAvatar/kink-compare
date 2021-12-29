@@ -944,7 +944,7 @@ let kinks = [
         danger_warning: false
     },
     {
-        name: "Naval play",
+        name: "Navel play",
         left: "Topping",
         right: "Bottoming",
         tooltip: "Bellybuttons",
@@ -1811,7 +1811,9 @@ class Options extends React.Component {
             name: "React",
             about_open: false,
             instructions_open: false,
-            restore_open: false
+            restore_open: false,
+            restore_report: "",
+            report_color: "red"
         }
         this.toggleAbout = this.toggleAbout.bind(this);
         this.toggleInstructions = this.toggleInstructions.bind(this);
@@ -1843,7 +1845,35 @@ class Options extends React.Component {
     }
     
     restoreAnswers() {
-        console.log(this.restore_hash.current.value);
+        let answers = null;
+        try {
+            answers = LZString.decompressFromBase64(this.restore_hash.current.value)
+        } catch (error) {
+            this.setState({restore_report: "Invalid hash: failed to decode from base 64"});
+        }
+        if (answers === null || answers === "") {
+            this.setState({restore_report: "Invalid hash: cannot decode from base 64"});
+            return
+        }
+        if (answers.match(/[^$,.\d]/)) {
+            this.setState({restore_report: "Invalid hash: decoded hash contained invalid characters"});
+            return
+        }
+        if (answers.length !== kinks.length*2) {
+            this.setState({restore_report: "Invalid hash: incorrect number of answers"});
+            return
+        }
+        
+        for (let i=0; i < kinks.length; i++) {
+            kinks[i].answer_left = answers[i*2];
+            kinks[i].answer_right = answers[(i*2)+1];
+        }
+        
+        this.setState({
+            restore_report: "Successfully imported answers",
+            report_color: "green"
+        });
+        
     }
     
     render() {
@@ -1851,61 +1881,66 @@ class Options extends React.Component {
             <div className="Links">
                     <div className="Link about" onClick={(event)=>this.toggleAbout(event)}>
                         About
-                        
-                            {this.state.about_open ? (
-                                <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
-                                    <div className="Panel About-panel">
-                                        im gay lol
-                                        <br /><br />
-                                        nothing in this page is ever recorded or sent to a server, it is all open source and client-side, I do not store or process any data from this app
-                                        <br /><br />
-                                        if you have questions or suggestions, you can direct them to me on fetlife, my username is "Marten", or you could send me an email at pinemartenavatar@gmail.com (although I rarely check that)
-                                    </div>
-                                </div>
-                            ) : null}
                     </div>
+                    {this.state.about_open ? (
+                    <>
+                        <div className="Panel-shadow" onClick={(event)=>this.toggleAbout(event)}></div>
+                        <div className="Panel About-panel">
+                                im gay lol
+                                <br /><br />
+                                nothing in this page is ever recorded or sent to a server, it is all open source and client-side, I do not store or process any data from this app
+                                <br /><br />
+                                if you have questions or suggestions, you can direct them to me on fetlife, my username is "Marten", or you could send me an email at pinemartenavatar@gmail.com (although I rarely check that)
+                        </div>
+                    </>
+                    ) : null}
+                    
                     <div className="Link instructions" onClick={(event)=>this.toggleInstructions(event)}>
                         Instructions
-                        
-                        {this.state.instructions_open ? (
-                            <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
-                                <div className="Panel Instructions-panel">
-                                    Fill out the survey, and then hit "generate hash". This will generate a string which you can then copy and send to your partner. Once you have both hashes, paste them (along with your names, if you'd like to make things easier to read) into the text fields below and hit the "compare" button.
-                                    <br/><br/>
-                                    
-                                    <ul><strong>NOTES</strong>
-                                        <li>
-                                            In it's current state, you cannot get back once you have hit the compare button! Also: because nothing is saved, you cannot refresh to page, so make sure you save your hash. I'll add a "regenerate answers from hash" functionality later, I swear
-                                        </li>
-                                        <li>
-                                            Aren't familiar with a kink? I've added mouse-over tooltip text to most of the entries on this list which explain each one
-                                        </li>
-                                        <li>
-                                            If an act or kink is physically impossible for you or your partner for whatever reason, mark it as a hard limit
-                                        </li>
-                                        <li>
-                                            For kinks in which there are not two roles, simply answer the same thing for both columns
-                                        </li>
-                                        <li>
-                                            For kinks in which there aren't roles, such as "chance of getting caught", you may still select different "as top" and "as bottom" choices, as those reflect how you'd feel in those situations when topping or bottoming for whatever else is happening during that scene
-                                        </li>
-                                    </ul>                                      
-                                </div>
-                            </div>
-                        ) : null}
                     </div>
+                    {this.state.instructions_open ? (
+                    <>
+                        <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}></div>
+                        <div className="Panel Instructions-panel">
+                            Fill out the survey, and then hit "generate hash". This will generate a string which you can then copy and send to your partner. Once you have both hashes, paste them (along with your names, if you'd like to make things easier to read) into the text fields below and hit the "compare" button.
+                            <br/><br/>
+
+                            <ul><strong>NOTES</strong>
+                                <li>
+                                    In it's current state, you cannot get back once you have hit the compare button! Also: because nothing is saved, you cannot refresh to page, so make sure you save your hash. I'll add a "regenerate answers from hash" functionality later, I swear
+                                </li>
+                                <li>
+                                    Aren't familiar with a kink? I've added mouse-over tooltip text to most of the entries on this list which explain each one
+                                </li>
+                                <li>
+                                    If an act or kink is physically impossible for you or your partner for whatever reason, mark it as a hard limit
+                                </li>
+                                <li>
+                                    For kinks in which there are not two roles, simply answer the same thing for both columns
+                                </li>
+                                <li>
+                                    For kinks in which there aren't roles, such as "chance of getting caught", you may still select different "as top" and "as bottom" choices, as those reflect how you'd feel in those situations when topping or bottoming for whatever else is happening during that scene
+                                </li>
+                            </ul>                                      
+                        </div>
+                    </>
+                    ) : null}
                     <div className="Link restore" onClick={(event)=>this.toggleRestore(event)}>
                         Restore
-                        
-                        {this.state.restore_open ? (
-                            <div className="Panel-shadow" onClick={(event)=>this.toggleInstructions(event)}>
-                                <div className="Panel Restore-panel">
-                                    <input type="text" ref={this.restore_hash} className="Compare-text" placeholder="Hash you want to restore to"/>
-                                    <button className="Restore-button" onClick={this.restoreAnswers}>Restore answers</button>
-                                </div>
-                            </div>
-                        ) : null}
                     </div>
+                
+                    {this.state.restore_open ? (
+                        <>
+                            <div className="Panel-shadow" onClick={(event)=>this.toggleRestore(event)}></div>
+                            <div className="Panel Restore-panel">
+                                <div>You can put in a hash here to restore the answers stored in that hash, allowing you to edit those answers and generate a new hash. NOTE: this works but it's mega janky right now, it won't show the answers until you scrub past them and then return to that question for mysterious reasons. You should still see the counter in the top left go up, though.</div>
+                                <input type="text" ref={this.restore_hash} className="Restore-text" placeholder="Hash you want to restore to"/>
+                                <button className="Restore-button" onClick={this.restoreAnswers}>Restore answers</button>
+                            <div style={{color: this.state.report_color}}>{this.state.restore_report}</div>
+                            </div>
+                        </>
+                    ) : null}
+                    
             </div>
         )
     };

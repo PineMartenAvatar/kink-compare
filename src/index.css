@@ -297,38 +297,44 @@ input {
 .Link::selection { background: transparent; } 
 .Link::-moz-selection { background: transparent; }
 
-.Panel {
-    min-width: 60%;
-    min-height: 20%;
-    
-    text-align: left;
-    padding: 15px;
-    
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border: 5px solid #333333;
-    
-    cursor: default;
-    pointer-events: none;
-    
-    color: #5e6472;
-    font-size: 15pt;
-    
-    z-index: 1;
-    
-    background-color: #faf3dd;
-}
-
 .Panel-shadow {
-    z-index: 2;
+    z-index: 1;
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,.8);
+/*    pointer-events: none;*/
+}
+
+.Panel {
+    z-index: 2;
+    
+    min-width: 60%;
+    min-height: 20%;
+    
+    text-align: left;
+    padding: 15px;
+    
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #333333;
+    
+    cursor: default;
+/*    pointer-events: none;*/
+    
+    color: #5e6472;
+    font-size: 15pt;
+    
+    background-color: #faf3dd;
+}
+
+.Restore-text {
+    width: 80%;
+    background-color: #FFFFFF;
 }
 
 .Results {
