@@ -74,6 +74,16 @@ let kinks = [
         danger_warning: false
     },
     {
+        name: "Sadomasochism (general)",
+        left: "You are sadist",
+        right: "You are masochist",
+        tooltip: "Scenarios in which one person (the sadist) causes pain (physical, emotional, or otherwise) to the other (the masochist) for pleasure or gratification",
+        answer_left: "9",
+        answer_right: "9",
+        type: "double",
+        danger_warning: false
+    },
+    {
         name: "Edging/Teasing",
         left: "Topping",
         right: "Bottoming",
@@ -164,7 +174,7 @@ let kinks = [
         danger_warning: true
     },
     {
-        name: "Double penetration (vaginal+anal)",
+        name: "Double penetration (different holes)",
         left: "Topping",
         right: "Bottoming",
         tooltip: "Multiple insertions, including both anal and vaginal at once. If neither partner possesses the bits necessary for this, answer 'Hard Limit'",
@@ -174,10 +184,10 @@ let kinks = [
         danger_warning: false
     },
     {
-        name: "Double anal (or more)",
+        name: "Double penetration (same hole)",
         left: "Topping",
         right: "Bottoming",
-        tooltip: "Multiple insertions into the anus of the bottom",
+        tooltip: "Multiple insertions into the vagina or anus of the bottom",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -787,7 +797,7 @@ let kinks = [
         name: "Cuckolding",
         left: "Partner is the cuck",
         right: "You are the cuck",
-        tooltip: "Scenarios in which one person (the cuck) watches their partner have sex with a third party (oft. the 'bull'), often associated with humiliation but necessarily",
+        tooltip: "Scenarios in which one person (the cuck) watches their partner have sex with a third party (oft. the 'bull'), often associated with humiliation but not necessarily",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -828,6 +838,26 @@ let kinks = [
         left: "Topping",
         right: "Bottoming",
         tooltip: "Play in which the top uses the bottom as a piece of furniture, often a footrest",
+        answer_left: "9",
+        answer_right: "9",
+        type: "double",
+        danger_warning: false
+    },
+    {
+        name: "Orgasm torture",
+        left: "Topping",
+        right: "Bottoming",
+        tooltip: "Torturing the bottom by making them orgasm repeatedly, to the point of discomfort. Also referred to as 'milking'",
+        answer_left: "9",
+        answer_right: "9",
+        type: "double",
+        danger_warning: false
+    },
+    {
+        name: "Fire cupping",
+        left: "Cupper",
+        right: "Cupped",
+        tooltip: "A technique in which heat is used to create a vacuum inside a (usually glass) cup when it is applied to the skin and let cool; the vacuum pulls on the skin and leaves distinctive circular marks, and draws blood towards the surface",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -887,7 +917,7 @@ let kinks = [
         name: "Predicament/stress bondage",
         left: "Topping",
         right: "Bottoming",
-        tooltip: "[FIXME] Bondage in which the bottom is placed in a predicament in which moving in one way causes discomfort in another place",
+        tooltip: "Bondage in which the bottom is placed in a predicament in which moving in a specific way causes discomfort (or some other sensation) in another place",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -925,8 +955,8 @@ let kinks = [
     },
     {
         name: "Armpit play",
-        left: "Topping",
-        right: "Bottoming",
+        left: "Your pits",
+        right: "Partner's pits",
         tooltip: "Play involving armpits, usually having to do with scent",
         answer_left: "9",
         answer_right: "9",
@@ -1115,9 +1145,9 @@ let kinks = [
     },
     {
         name: "Sleeves",
-        left: "Topping",
-        right: "Bottoming",
-        tooltip: "Toys made to stimulate the penis",
+        left: "Sleeve is used on partner",
+        right: "Sleeve is used on you",
+        tooltip: "Toys made to stimulate the penis. If this is not something you can use, answer hard limit",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -1275,8 +1305,8 @@ let kinks = [
     },
     {
         name: "Bored & Ignored",
-        left: "Topping",
-        right: "Bottoming",
+        left: "Partner is doing the sex",
+        right: "You are doing the sex",
         tooltip: "Play in which one partner is preoccupied and not paying attention to the other during a sexual act; similar to objectification or free use",
         answer_left: "9",
         answer_right: "9",
@@ -1623,7 +1653,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header show"
-                                 title="Gray areas, and things you may want to talk about">Complex</div>
+                                 title="Gray areas, and things you may want to talk about">Grey areas</div>
                             {this.state.results.p1_tops.show.map((result) => {
                                 return  <div className="List-item show">
                                             <div className="List-kink">{result[0]}</div>
@@ -1632,7 +1662,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header show-caution"
-                                 title="Gray areas and things you may want to talk about that neither of you has experience with">Complex, with caution</div>
+                                 title="Gray areas and things you may want to talk about that neither of you has experience with">Grey areas, with caution</div>
                             {this.state.results.p1_tops.show_caution.map((result) => {
                                 return  <div className="List-item show-caution">
                                             <div className="List-kink">{result[0]}</div>
@@ -1641,7 +1671,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header warn"
-                                 title="Conflicting limits and wants, it is important for you two to discuss these">You should discuss</div>
+                                 title="Conflicting limits and wants, it is important for you two to discuss these">Conflicts to discuss</div>
                             {this.state.results.p1_tops.warn.map((result) => {
                                 return  <div className="List-item warn">
                                             <div className="List-kink">{result[0]}</div>
@@ -1680,7 +1710,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header show"
-                                 title="Gray areas, and things you may want to talk about">Gray areas</div>
+                                 title="Gray areas, and things you may want to talk about">Grey areas</div>
                             {this.state.results.p2_tops.show.map((result) => {
                                 return  <div className="List-item show">
                                             <div className="List-kink">{result[0]}</div>
@@ -1689,7 +1719,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header show-caution"
-                                 title="Gray areas and things you may want to talk about that neither of you has experience with">Gray areas, with caution</div>
+                                 title="Gray areas and things you may want to talk about that neither of you has experience with">Grey areas, with caution</div>
                             {this.state.results.p2_tops.show_caution.map((result) => {
                                 return  <div className="List-item show-caution">
                                             <div className="List-kink">{result[0]}</div>
@@ -1698,7 +1728,7 @@ class Question extends React.Component {
                         </div>
                         <div className="Results-list">
                             <div className="List-header warn"
-                                 title="Conflicting limits and wants, it is important for you two to discuss these">You should talk about</div>
+                                 title="Conflicting limits and wants, it is important for you two to discuss these">Conflicts to discuss</div>
                             {this.state.results.p2_tops.warn.map((result) => {
                                 return  <div className="List-item warn">
                                             <div className="List-kink">{result[0]}</div>
@@ -1729,44 +1759,44 @@ class Question extends React.Component {
                         </div>
                         
                         <div className="Option-container">
-                            <input type="radio" value="left 1" name="left" id="left 1" className="left 1" onChange={this.setLeft.bind(this,0)} checked={(this.state.left === 0)} /><label for="left 1"></label>
+                            <input type="radio" value="left 1" name="left" id="left 1" className="left 1" onChange={this.setLeft.bind(this,7)} checked={(this.state.left === 7)} /><label for="left 1"></label>
                             <div className="Option" title="Hard limit">Hard limit - I would never do this</div>
-                            <input type="radio" value="right 1" name="right" id="right 1" className="right 1" onChange={this.setRight.bind(this,0)} checked={(this.state.right === 0)} /><label for="right 1"></label>
+                            <input type="radio" value="right 1" name="right" id="right 1" className="right 1" onChange={this.setRight.bind(this,7)} checked={(this.state.right === 7)} /><label for="right 1"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 2" name="left" id="left 2" className="left 2" onChange={this.setLeft.bind(this,1)} checked={(this.state.left === 1)} /><label for="left 2"></label>
+                            <input type="radio" value="left 2" name="left" id="left 2" className="left 2" onChange={this.setLeft.bind(this,6)} checked={(this.state.left === 6)} /><label for="left 2"></label>
                             <div className="Option" title="Soft limit">I would consider this only if it was important to my partner</div>
-                            <input type="radio" value="right 2" name="right" id="right 2" className="right 2" onChange={this.setRight.bind(this,1)} checked={(this.state.right === 1)} /><label for="right 2"></label>
+                            <input type="radio" value="right 2" name="right" id="right 2" className="right 2" onChange={this.setRight.bind(this,6)} checked={(this.state.right === 6)} /><label for="right 2"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 3" name="left" id="left 3" className="left 3" onChange={this.setLeft.bind(this,2)} checked={(this.state.left === 2)} /><label for="left 3"></label>
+                            <input type="radio" value="left 3" name="left" id="left 3" className="left 3" onChange={this.setLeft.bind(this,5)} checked={(this.state.left === 5)} /><label for="left 3"></label>
                             <div className="Option" title="Willing to indulge">Not my thing by itself- but if my partner likes it, I'm game</div>
-                            <input type="radio" value="right 3" name="right" id="right 3" className="right 3" onChange={this.setRight.bind(this,2)} checked={(this.state.right === 2)} /><label for="right 3"></label>
+                            <input type="radio" value="right 3" name="right" id="right 3" className="right 3" onChange={this.setRight.bind(this,5)} checked={(this.state.right === 5)} /><label for="right 3"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 4" name="left" id="left 4" className="left 4" onChange={this.setLeft.bind(this,3)} checked={(this.state.left === 3)} /><label for="left 4"></label>
+                            <input type="radio" value="left 4" name="left" id="left 4" className="left 4" onChange={this.setLeft.bind(this,4)} checked={(this.state.left === 4)} /><label for="left 4"></label>
                             <div className="Option" title="Willing to try">I would give this a try</div>
-                            <input type="radio" value="right 4" name="right" id="right 4" className="right 4" onChange={this.setRight.bind(this,3)} checked={(this.state.right === 3)} /><label for="right 4"></label>
+                            <input type="radio" value="right 4" name="right" id="right 4" className="right 4" onChange={this.setRight.bind(this,4)} checked={(this.state.right === 4)} /><label for="right 4"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 5" name="left" id="left 5" className="left 5" onChange={this.setLeft.bind(this,4)} checked={(this.state.left === 4)} /><label for="left 5"></label>
+                            <input type="radio" value="left 5" name="left" id="left 5" className="left 5" onChange={this.setLeft.bind(this,3)} checked={(this.state.left === 3)} /><label for="left 5"></label>
                             <div className="Option" title="Curiosity">I think I might like this</div>
-                            <input type="radio" value="right 5" name="right" id="right 5" className="right 5" onChange={this.setRight.bind(this,4)} checked={(this.state.right === 4)} /><label for="right 5"></label>
+                            <input type="radio" value="right 5" name="right" id="right 5" className="right 5" onChange={this.setRight.bind(this,3)} checked={(this.state.right === 3)} /><label for="right 5"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 6" name="left" id="left 6" className="left 6" onChange={this.setLeft.bind(this,5)} checked={(this.state.left === 5)} /><label for="left 6"></label>
+                            <input type="radio" value="left 6" name="left" id="left 6" className="left 6" onChange={this.setLeft.bind(this,2)} checked={(this.state.left === 2)} /><label for="left 6"></label>
                             <div className="Option" title="Fantasy">It is important to me to try this</div>
-                            <input type="radio" value="right 6" name="right" id="right 6" className="right 6" onChange={this.setRight.bind(this,5)} checked={(this.state.right === 5)} /><label for="right 6"></label>
+                            <input type="radio" value="right 6" name="right" id="right 6" className="right 6" onChange={this.setRight.bind(this,2)} checked={(this.state.right === 2)} /><label for="right 6"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 7" name="left" id="left 7" className="left 7" onChange={this.setLeft.bind(this,6)} checked={(this.state.left === 6)} /><label for="left 7"></label>
+                            <input type="radio" value="left 7" name="left" id="left 7" className="left 7" onChange={this.setLeft.bind(this,1)} checked={(this.state.left === 1)} /><label for="left 7"></label>
                             <div className="Option" title="Kink">I know that I like this</div>
-                            <input type="radio" value="right 7" name="right" id="right 7" className="right 7" onChange={this.setRight.bind(this,6)} checked={(this.state.right === 6)} /><label for="right 7"></label>
+                            <input type="radio" value="right 7" name="right" id="right 7" className="right 7" onChange={this.setRight.bind(this,1)} checked={(this.state.right === 1)} /><label for="right 7"></label>
                         </div>
                         <div className="Option-container">
-                            <input type="radio" value="left 8" name="left" id="left 8" className="left 8" onChange={this.setLeft.bind(this,7)} checked={(this.state.left === 7)} /><label for="left 8"></label>
+                            <input type="radio" value="left 8" name="left" id="left 8" className="left 8" onChange={this.setLeft.bind(this,0)} checked={(this.state.left === 0)} /><label for="left 8"></label>
                             <div className="Option" title="Essential">This is important or essential to me</div>
-                            <input type="radio" value="right 8" name="right" id="right 8" className="right 8" onChange={this.setRight.bind(this,7)} checked={(this.state.right === 7)} /><label for="right 8"></label>
+                            <input type="radio" value="right 8" name="right" id="right 8" className="right 8" onChange={this.setRight.bind(this,0)} checked={(this.state.right === 0)} /><label for="right 8"></label>
                         </div>
                         <div className="Nav-panel">
                             <button onClick={this.goPrev} className="prev">Prev</button>
