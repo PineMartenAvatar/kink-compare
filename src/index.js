@@ -45,19 +45,9 @@ Low Priority:
 let kinks = [
     {
         name: "Oral sex",
-        left: "Topping",
-        right: "Bottoming",
+        left: "Partner's mouth",
+        right: "Your mouth",
         tooltip: "Felatio or cunnilingus",
-        answer_left: "9",
-        answer_right: "9",
-        type: "double",
-        danger_warning: false
-        },
-    {
-        name: "Anal sex",
-        left: "Topping",
-        right: "Bottoming",
-        tooltip: "Penetrative sex involving one or more anuses/rectums",
         answer_left: "9",
         answer_right: "9",
         type: "double",
@@ -65,14 +55,25 @@ let kinks = [
     },
     {
         name: "Vaginal sex",
-        left: "Topping",
-        right: "Bottoming",
+        left: "Partner's vagina",
+        right: "Your vagina",
         tooltip: "Penetrative sex involving oner or more vaginas",
         answer_left: "9",
         answer_right: "9",
         type: "double",
         danger_warning: false
     },
+    {
+        name: "Anal sex",
+        left: "Partner's anus",
+        right: "Your anus",
+        tooltip: "Penetrative sex involving one or more anuses/rectums",
+        answer_left: "9",
+        answer_right: "9",
+        type: "double",
+        danger_warning: false
+    },
+
     {
         name: "Sadomasochism (general)",
         left: "You are sadist",
@@ -125,8 +126,8 @@ let kinks = [
     },
     {
         name: "Fisting",
-        left: "Topping",
-        right: "Bottoming",
+        left: "As fist",
+        right: "As glove",
         tooltip: "Inserting a whole hand inside the bottom, anally or vaginally. Just, like, all the way up in there. Sometimes a whole forearm.",
         answer_left: "9",
         answer_right: "9",
@@ -225,8 +226,8 @@ let kinks = [
     },
     {
         name: "Crush",
-        left: "Topping",
-        right: "Bottoming",
+        left: "As Crusher",
+        right: "As Crushed",
         tooltip: "Crushing the bottom under a weight, often the top's own body weight",
         answer_left: "9",
         answer_right: "9",
